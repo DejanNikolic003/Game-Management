@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+     <%- include('../components/navbar') %>
     <div class="container">
         <% categories.map(category => { %>
+            <p><%= category.id %></p>
             <p><%= category.name %></p>
             <form action="/categories/delete/<%= category.id %>" method="POST">
                 <button type="submit">Delete</button>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameVault - Games</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+     <%- include('../components/navbar') %>
+    <div class="container">
+        <% games.map(game => { %>
+            <p>ID: <%= game.id %></p>
+            <a href="/categories/<%= game.categoryid %>">Category: <%= game.categoryname %></a>
+            <a href="/games/<%= game.id %>" target="_blank">Title: <%= game.name %></a>
+            <p>Description: <%= game.description %></p>
+            <form action="/games/delete/<%= game.id %>" method="POST">
+                <button type="submit">DEL</button>
+            </form>
+            <a href="/games/edit/<%= game.id %>">edit</a>
+         <% }) %>
+         <hr>
+        <h1>Create Game</h1>
+        <form action="/games/create" method="POST">
+            <input type="text" name="title" required class="w-full bg-gray-50 border border-gray-100 rounded-md outline-none px-3" placeholder="Enter game title..."/>
+            <input type="text" name="description" required class="w-full bg-gray-50 border border-gray-100 rounded-md outline-none px-3" placeholder="Enter game description..."/>
+            <select name="categories" id="categories">
+                <% categories.map(category => { %>
+                    <option value="<%= category.id %>"><%= category.name %></option>
+                <% }) %>
+            </select>
+            <button type="submit">Create</button>
+        </form>
+        <% if (isEditing) { %>
+            <h1>Editing <%= game.name %></h1>
+            <form action="/games/edit/<%= game.id %>" method="POST" id="edit-form">
+                <input type="text" name="title" required  placeholder="Enter game title..." value="<%= game && game.name ? game.name : '' %>"/>
+                <input type="text" name="description" required placeholder="Enter game description..." value="<%= game && game.description ? game.description : '' %>"/>
+                <select name="categories" id=categories"">
+                    <% categories.map(category => { %>
+                        <option value="<%= category.id %>" <%= game && game.categoryid === category.id ? 'selected' : '' %>><%= category.name %></option>
+                    <% }) %>
+                </select>
+                <button type="submit">Save</button>
+            </form>
+        <% } %>
+    </div>
+</body>
+</html>

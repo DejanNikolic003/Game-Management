@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameVault - Categories</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+     <%- include('../components/navbar') %>
+    <div class="container">
+        <% games.map(game => { %>
+            <p>ID: <%= game.id %></p>
+            <p>Category: <%= game.categoryname %></p>
+            <a href="/games/<%= game.id %>" target="_blank">Title: <%= game.name %></a>
+            <p>Description: <%= game.description %></p>
+            <form action="/games/delete/<%= game.id %>" method="POST">
+                <button type="submit">DEL</button>
+            </form>
+            <a href="/games/edit/<%= game.id %>">edit</a>
+         <% }) %>
+    </div>
+</body>
+</html>

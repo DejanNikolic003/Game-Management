@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
+    <%- include('../components/navbar') %>
     <div class="container">
         <h1>Create category</h1>
         <form method="POST">
-            <input type="text" name="categoryName" required />
+            <input type="text" name="categoryName" required class="w-full bg-gray-50 border border-gray-100 rounded-md outline-none px-3" placeholder="Enter category name..."/>
             <button type="submit">Create</button>
         </form>
     </div>

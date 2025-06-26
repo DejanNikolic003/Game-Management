@@ -1,4 +1,4 @@
-import { createCategory, deleteCategoryById, getAllCategories } from "../models/Category.js";
+import { createCategory, deleteCategoryById, getAllCategories, getAllGamesByCategory } from "../models/Category.js";
 
 
 export const createCategoryController = async (req, res) => {
@@ -15,10 +15,17 @@ export const getAllCategoriesController = async (req, res) => {
     res.render("categories/index", { categories: rows });
 };
 
+export const showCategoryGamesController = async (req, res) => {
+    const { id } = req.params;
+    const { rows } = await getAllGamesByCategory(Number(id));
+
+    res.render("categories/show", { games: rows });
+};
+
 export const deleteCategoryController = async (req, res) => {
     const { id } = req.params;
 
     await deleteCategoryById(Number(id));
 
     res.redirect("/categories/");
-}
+};
